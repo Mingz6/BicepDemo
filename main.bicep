@@ -31,13 +31,18 @@ module secondweb './staticwebapp.bicep' = {
 
 // I am looking for a way to deploy the third web app independently using the mainproblem.bicepparam file.
 var mainParamsBicep = loadTextContent('./mainproblem.bicepparam')
-// var thirdServiceName = mainParamsBicep.???.???
+// Problem is here and the mainParamsBicep is massive string cannot be used as an object
+// var thirdServiceNameBicep = mainParamsBicep.???.???
+
 var thirdServiceName = 'third-static-web-app-name'
 // az cli is ????
 module thirdweb './staticwebapp.bicep' = {
   name: thirdServiceName
   params: {
+    // Cannot load the name from bicepparam file
+    // staticSiteName: thirdServiceNameBicep
     staticSiteName: thirdServiceName
+
     location: 'westus2'
     environment: environment
   }
